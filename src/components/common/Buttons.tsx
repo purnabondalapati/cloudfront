@@ -16,4 +16,17 @@ const PrimaryButton = (props: ButtonProps) => {
   );
 };
 
-export { PrimaryButton };
+const SecondaryButton = (props: ButtonProps) => {
+  return (
+    <Button
+      bg="white"
+      color="primary"
+      border="1px solid"
+      variant='outline'
+      borderColor="primary"
+      {...props}
+    />
+  );
+};
+
+export { PrimaryButton , SecondaryButton };
