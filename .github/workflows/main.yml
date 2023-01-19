@@ -6,6 +6,8 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ap-south-1
+
     steps:
         - uses: actions/checkout@v3
 
@@ -13,16 +15,21 @@ jobs:
           run: npm install
 
         - name: Build
-          run: npm run build && aws s3 sync .next s3://appnext
-
+          run: npm run build
+        - name: Upload file
+          uses: hannut91/aws-cli@v1.18.43
+          with:
+            args:  s3 sync .next s3://appnext
+  
+    
         - name: Deploy
           uses: reggionick/s3-deploy@v3
           with:
             folder: .next
             bucket: ${{ secrets.S3_BUCKET }}
-            bucket-region: ${{ secrets.S3_BUCKET_REGION }}
+            bucket-region: ap-south-1
             dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-            invalidation: /*
+            invalidation: "/*"
             delete-removed: true
             no-cache: true
             private: true
