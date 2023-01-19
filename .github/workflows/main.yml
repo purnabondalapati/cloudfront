@@ -13,7 +13,7 @@ jobs:
           run: npm install
 
         - name: Build
-          run: npm run build && aws s3 sync .next s3://nextapp
+          run: npm run build && aws s3 sync .next s3://appnext
 
         - name: Deploy
           uses: reggionick/s3-deploy@v3
