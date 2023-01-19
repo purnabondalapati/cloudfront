@@ -1,5 +1,5 @@
 name: Example workflow for S3 Deploy
-on: [push]
+on: [ workflow_dispatch]
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -16,10 +16,10 @@ jobs:
 
         - name: Build
           run: npm run build
-        - name: Upload file
-          uses: hannut91/aws-cli@v1.18.43
-          with:
-            args:  s3 sync .next s3://appnext
+          
+        - name: export
+          run: npm run export
+
   
     
         - name: Deploy
