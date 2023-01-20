@@ -25,13 +25,14 @@ export const DeliveryPlannerSection = () => {
     setColumnApi(params.columnApi);
   };
 
+
   const actionCellRenderer = () => {
     return (
       <HStack spacing={1} h='100%'>
-        <Button colorScheme="blue" size="xs" variant="solid">
+        <Button colorScheme="blue" size="xs" variant="solid" onClick={() => window.location.href = '/bootcamp/create'}>
         Edit
         </Button>
-        <Button colorScheme="blue" size="xs" variant="outline">
+        <Button colorScheme="blue" size="xs" variant="outline" onClick={() => window.location.href = '/bootcamp/view'}>
           View &#x2192;
         </Button>
       </HStack>
@@ -73,6 +74,8 @@ export const DeliveryPlannerSection = () => {
       maxWidth: 200,
       sortable: true,
       unSortIcon: true,
+      suppressNavigable: true,
+      cellClass: 'no-border'
     },
     {
       headerName: "Action",
@@ -80,6 +83,8 @@ export const DeliveryPlannerSection = () => {
       cellRenderer: actionCellRenderer,
       editable: false,
       colId: "action",
+      suppressNavigable: true,
+      cellClass: 'no-border'
     },
   ];
 
@@ -201,14 +206,17 @@ export const DeliveryPlannerSection = () => {
       className="ag-theme-alpine"
       style={{
         height: "500px",
-        width: "100%",
+        width: "94%",
       }}
     >
       <AgGridReact
         columnDefs={columnDefs}
         rowData={rowData}
         onGridReady={onGridReady}
-        sideBar={"filters"}
+        domLayout = 'autoHeight'
+        pagination= {true}
+  paginationPageSize = {10}
+paginateChildRows= {true}
       />
     </Box>
   );

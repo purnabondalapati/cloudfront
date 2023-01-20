@@ -35,10 +35,9 @@ const CommonInputField = ({
     labelProps,
     ...props
   }: CommonInputFieldProps) => {
-    // const {
-    //   formState: { errors },
-    //   register,
-    // } = hForm;
+    const {
+      register,
+    } = hForm;
   
     // const error = get(errors, name);
   
@@ -54,10 +53,10 @@ const CommonInputField = ({
         </FormLabel>
         <Input
           isDisabled={isDisabled}
-        //   {...register(name, {
-        //     ...rules,
-        //     valueAsNumber: props.type === "number",
-        //   })}
+          // {...register(name, {
+          //   ...rules,
+          //   valueAsNumber: props.type === "number",
+          // })}
           {...props}
           borderColor="#9fb1bd"
         />

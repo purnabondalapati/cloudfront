@@ -12,6 +12,32 @@ import {
     SingleValue,
   } from "react-select";
 
+  const styles = {
+    control: (provided: any, state: any) => {
+      return {
+        ...provided,
+        borderColor: "#9fb1bd",
+      };
+    },
+    menuPortal: (provided: any, state: any) => {
+      return {
+        ...provided,
+        zIndex: 9999,
+      };
+    },
+    multiValue: (base: any, state: { data: SelectOptionInterface }) => {
+      return state.data.isFixed ? { ...base, backgroundColor: "gray" } : base;
+    },
+    multiValueLabel: (base: any, state: { data: SelectOptionInterface }) => {
+      return state.data.isFixed
+        ? { ...base, fontWeight: "bold", color: "white", paddingRight: 6 }
+        : base;
+    },
+    multiValueRemove: (base: any, state: { data: SelectOptionInterface }) => {
+      return state.data.isFixed ? { ...base, display: "none" } : base;
+    },
+  };
+
 interface SelectOptionInterface {
     value: number | string | boolean;
     label: string;
@@ -53,10 +79,9 @@ export const CustomReactSelect = ({
     showDropdownOnModal,
     labelProps,
   }: CustomReactSelectProps) => {
-    // const {
-    //   control,
-      // formState: { errors },
-    // } = hForm;
+    const {
+      control
+    } = hForm;
   
     // const error = get(errors, name);
   
@@ -86,7 +111,12 @@ export const CustomReactSelect = ({
     };
   
     return (
-          <FormControl  maxWidth="200px">
+      <Controller
+        control={control}
+        name={name}
+        rules={rules}
+        render={({ field: { onChange, onBlur, value: fieldValue, name } }) => (
+          <FormControl maxWidth="220px">
             {title && (
               <FormLabel
                 opacity={isDisabled ? 0.5 : 1}
@@ -100,32 +130,40 @@ export const CustomReactSelect = ({
             <Select
               isMulti={isMulti}
               name={name}
-              
-              // value={}
+              onChange={(e, a) => {
+                if (isMulti) {
+                  optionChange(
+                    fieldValue,
+                    onChange,
+                    e as MultiValue<SelectOptionInterface>,
+                    a
+                  );
+                } else {
+                  onChange((e as SelectOptionInterface)?.value);
+                }
+              }}
+              onBlur={onBlur}
+              value={
+                isMulti
+                  ? orderOptions(
+                      options.filter((option) =>
+                        fieldValue.includes(option.value)
+                      )
+                    )
+                  : options.find((option) => option.value === fieldValue)
+              }
               options={options}
               closeMenuOnSelect={closeMenuOnSelect}
               placeholder={placeholder ?? "Select a value"}
               isDisabled={isDisabled}
-              styles={{
-                control: (provided: any, state: any) => {
-                  return {
-                    ...provided,
-                    borderColor: "#9fb1bd",
-                  };
-                },
-                menuPortal: (provided: any, state: any) => {
-                  return {
-                    ...provided,
-                    zIndex: 9999,
-                  };
-                },
-              }}
+              styles={styles}
               menuPortalTarget={
                 showDropdownOnModal === true ? document.body : null
               }
             />
-            {/* <FormErrorMessage mt={1}>{error?.message}</FormErrorMessage> */}
+            {/* <FormErrorMessage mt={1}>{errors?.message}</FormErrorMessage> */}
           </FormControl>
-      
+        )}
+      />
     );
   };

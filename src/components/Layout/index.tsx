@@ -5,13 +5,13 @@ import SideMenu from "./SideBar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <VStack spacing={0} align="stretch" h="100vh" overflow="hidden">
+    <VStack spacing={0} align="stretch" h="100vh" >
       <Header />
-      <Flex flex="1" overflowY="auto">
+      <Flex flex="1" >
         <Box display={["none", null, "block"]}>
           <SideMenu />
         </Box>
-        <Flex direction="column" h="100%" overflow="hidden" flex="1">
+        <Flex direction="column" h="100%" flex="1">
           {children}
         </Flex>
       </Flex>

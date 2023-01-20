@@ -13,13 +13,47 @@ import Layout from "components/Layout";
 import Batches from "components/delivery-planner/batches"
 
 export class PurchaseOrderDetailsInterface {
-    bootcampName: string = ''
+    bootcampName: string = '';
+    batches: BatchInterface[] = [];
   }
+
+export class BatchInterface {
+  moduleName: string = '';
+  courseName: string = '';
+  startDate : string = '';
+  noOfDays : string = '';
+  repeat : string = '';
+  repeatCadence : string = '';
+  noOfSessionsInDay: string = '';
+  sessionData : SessionInterface[] = [];
+}
+
+export class SessionInterface {
+  sessionStartTime : string = '';
+  sessionEndTime : string = '';
+  trainerName : string = '';
+}  
+export const batchInitialValues: SessionInterface = {
+  sessionStartTime : '',
+  sessionEndTime :'',
+  trainerName :'',
+};
+
+export const batchdata: BatchInterface = {
+  moduleName: '',
+  courseName: '',
+  startDate :  '',
+  noOfDays :  '',
+  repeat :  '',
+  repeatCadence :  '',
+  noOfSessionsInDay:  '',
+  sessionData : [],
+}
 const Create = () => {
 
-    // const removeExtraProps = (obj: any, classObj: any): any => {
-    //     return classObj;
-    //   };
+    const removeExtraProps = (obj: any, classObj: any): any => {
+        return classObj;
+      };
 
     // const poForm = useForm({
     //     mode: "onChange",
@@ -28,6 +62,14 @@ const Create = () => {
     //       new PurchaseOrderDetailsInterface()
     //     ),
     //   });
+
+    const sessionForm = useForm({
+        mode: "onChange",
+        defaultValues: removeExtraProps(
+          {},
+          new PurchaseOrderDetailsInterface()
+        ),
+      });
 
     // const { control } = poForm;
     // const { fields, append, remove } = useFieldArray({
@@ -64,7 +106,9 @@ const Create = () => {
       type="text"
       placeholder="Enter bootcamp name"
       />
-      <Batches />
+      <Batches 
+       form = {sessionForm}
+      />
       {/* <PrimaryButton mt="30px" order={2}>
         + Add one more batch
       </PrimaryButton> */}
