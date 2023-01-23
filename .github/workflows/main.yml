@@ -24,5 +24,5 @@ jobs:
           run: aws s3 sync ./.next s3://${{ secrets.S3_BUCKET }}
           
         - name: update cloudfront 
-          run : aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'"
+          run : aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
     
