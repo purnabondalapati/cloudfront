@@ -104,29 +104,29 @@ const ViewBootcamp = () => {
       Trainer: "Ashish",
       Course: "MatLab for mechanical Engineering",
     },
-    // ,{
-    //     Id: 2,
-    //     Day: "Dec-4",
-    //     Session: '10AM - 12PM',
-    //   Agenda: 'Intro of MatLab for mechanical Engineering',
-    //   Trainer: 'Ashish',
-    //   course: 'MatLab for mechanical Engineering'
-    //   },{
-    //     Id: 3,
-    //     Day: "Oct-9",
-    //     Session: '11AM - 12PM',
-    //   Agenda: 'Intro of session',
-    //   Trainer: 'Ashish',
-    //   course: 'MatLab for mechanical Engineering'
-    //   },
-    //   {
-    //     Id: 3,
-    //     Day: "Oct-9",
-    //     Session: '11AM - 12PM',
-    //   Agenda: 'Intro of session',
-    //   Trainer: 'Ashish',
-    //   course: 'MatLab for mechanical Engineering'
-    //   },
+    ,{
+        Id: 2,
+        Day: "Dec-4",
+        Session: '10AM - 12PM',
+      Agenda: 'Intro of MatLab for mechanical Engineering',
+      Trainer: 'Ashish',
+      course: 'MatLab for mechanical Engineering'
+      },{
+        Id: 3,
+        Day: "Oct-9",
+        Session: '11AM - 12PM',
+      Agenda: 'Intro of session',
+      Trainer: 'Ashish',
+      course: 'MatLab for mechanical Engineering'
+      },
+      {
+        Id: 3,
+        Day: "Oct-9",
+        Session: '11AM - 12PM',
+      Agenda: 'Intro of session',
+      Trainer: 'Ashish',
+      course: 'MatLab for mechanical Engineering'
+      },
   ];
   return (
     <>
