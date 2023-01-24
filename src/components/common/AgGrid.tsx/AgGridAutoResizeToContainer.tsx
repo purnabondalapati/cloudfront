@@ -1,5 +1,5 @@
 import { AgGridReact, AgGridReactProps } from "ag-grid-react";
-import { GridApi, GridReadyEvent } from "ag-grid-community";
+import { GridApi, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
 import React, { useEffect, useState } from "react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
@@ -36,7 +36,8 @@ export function AgGridAutoResizeToContainer({
       ref={ref}
       style={{ width: "100%"}}
     >
-      <AgGridReact onGridReady={handleGridReady} domLayout = 'autoHeight' {...props} />
+      <AgGridReact onGridReady={handleGridReady} domLayout = 'autoHeight'
+    {...props} />
     </Box>
   );
 }

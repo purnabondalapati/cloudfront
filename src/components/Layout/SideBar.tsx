@@ -19,7 +19,7 @@ const menuList: {
     activeImage: "/images/NavbarImages/selectedManageUser.svg",
     menuImage: "/images/NavbarImages/manageUser.svg",
     menuItem: "Delivery Planner & Schedule",
-    url: '/deliveryplanner'
+    url: '/bootcamp'
    
   },
   {

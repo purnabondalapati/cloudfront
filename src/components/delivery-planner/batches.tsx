@@ -11,6 +11,9 @@ import {
   Tabs,
   VStack,
   Heading,
+  Radio,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import CommonInputField from "components/common/InputField";
 import NumberedInputField from "components/common/NumberInputField";
@@ -45,13 +48,12 @@ const Batches = ({
   ];
   const index = 0;
   const { control, watch } = form;
-  const { fields , append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: `batches`,
   });
 
   const repeatCadence = watch(`batches.${index}.repeatCadence`);
- 
   let indexBefore: number;
 
   const handleAdd = () => {
@@ -177,13 +179,56 @@ const Batches = ({
                       <Heading size="sm" fontSize="md" fontWeight="600" pb={2}>
                         Repeat On
                       </Heading>
-                      <HStack spacing={3}>
-                        {week.map((data, index) => (
-                          <Checkbox value={data.value} key={index}>{data.label}</Checkbox>
-                        ))}
-                      </HStack>
+                      {repeatCadence == "week" && (
+                        <HStack>
+                          <Wrap>
+                            {week.map((data, index) => (
+                              <WrapItem>
+                                <Checkbox value={data.value} key={index}>
+                                  {data.label.slice(0, 3)}
+                                </Checkbox>
+                              </WrapItem>
+                            ))}
+                          </Wrap>
+                        </HStack>
+                      )}
+                      {repeatCadence == "month" && (
+                        <VStack align={"stretch"}>
+                          <HStack>
+                            <Radio value="1">On day</Radio>
+                            <CustomReactSelect
+                              hForm={form}
+                              name={`rescheduleDay`}
+                              options={daysData}
+                              rules={{ required: "Field is required" }}
+                              maxWidth="90px"
+                              placeholder="" // isDisabled={{}}
+                            />
+                          </HStack>
+                          <HStack>
+                            <Radio value="2">On the</Radio>
+                            <CustomReactSelect
+                              hForm={form}
+                              name={`rescheduleDay`}
+                              options={daysData}
+                              rules={{ required: "Field is required" }}
+                              maxWidth="90px"
+                              placeholder="" // isDisabled={{}}
+                            />
+                            <CustomReactSelect
+                              hForm={form}
+                              name={`rescheduleDay`}
+                              options={week}
+                              rules={{ required: "Field is required" }}
+                              maxWidth="150px"
+                              placeholder="" // isDisabled={{}}
+                            />
+                          </HStack>
+                        </VStack>
+                      )}
                     </Box>
                   )}
+
                   <SessionDetails form={form} />
                 </VStack>
               </TabPanel>
