@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import {
   Box,
+  Checkbox,
   HStack,
   SimpleGrid,
   Tab,
@@ -12,33 +10,19 @@ import {
   TabPanels,
   Tabs,
   VStack,
+  Text,
+  Heading,
 } from "@chakra-ui/react";
 import CommonInputField from "components/common/InputField";
 import NumberedInputField from "components/common/NumberInputField";
 import { CustomReactSelect } from "components/common/CustomReactSelect";
-import {
-  useFieldArray,
-  Controller,
-  UseFormReturn,
-  UseFieldArrayReturn,
-} from "react-hook-form";
+import { useFieldArray, UseFormReturn } from "react-hook-form";
 import {
   PurchaseOrderDetailsInterface,
   batchdata,
 } from "pages/bootcamp/create";
 import SessionDetails from "./sessiondetails";
 import { PrimaryButton } from "components/common/Buttons";
-import CommonArrayField from "components/common/commonArrayField";
-
-const enum IsLiveClass {
-  true = "Yes",
-  false = "No",
-}
-
-const enum BootCamp {
-  B2B = 0,
-  B2C = 1,
-}
 
 const Batches = ({
   form,
@@ -51,12 +35,26 @@ const Batches = ({
     { value: "month", label: "Month" },
   ];
 
+  const week = [
+    { value: "1", label: "Mon" },
+    { value: "2", label: "Tue" },
+    { value: "3", label: "Wed" },
+    { value: "4", label: "Thurs" },
+    { value: "5", label: "Fri" },
+    { value: "6", label: "Sat" },
+    { value: "7", label: "Sun" },
+  ];
+  const index = 0;
   const { register, control, handleSubmit, reset, watch } = form;
-  const { fields, append, remove } = useFieldArray({
+  const { fields , append, remove } = useFieldArray({
     control,
     name: `batches`,
   });
+
+  const repeatCadence = watch(`batches.${index}.repeatCadence`);
+ 
   let indexBefore: number;
+  const [value, setValue] = useState("0");
 
   const handleAdd = () => {
     append(batchdata);
@@ -64,7 +62,7 @@ const Batches = ({
 
   const handleRemove = (index: number) => {
     remove(index);
-    indexBefore= index-1;
+    indexBefore = index - 1;
   };
 
   return (
@@ -114,10 +112,10 @@ const Batches = ({
                       py={1}
                       m={3}
                       color={"red.600"}
-                      fontWeight='700'
+                      fontWeight="700"
                       top="-10px"
                       right="-10px"
-                      cursor='pointer'
+                      cursor="pointer"
                       onClick={() => handleRemove(index)}
                     >
                       X
@@ -152,17 +150,6 @@ const Batches = ({
                       hForm={form}
                       title="Start Date"
                       name={`startDate`}
-                      //   rules={{
-                      //     required: watchCustomCourseCreation ? "Field is required" : "",
-                      //     min: {
-                      //       value: 1,
-                      //       message: "You can't create less than 1 course",
-                      //     },
-                      //     max: {
-                      //       value: 100,
-                      //       message: "you can't create more than 100 custom courses",
-                      //     },
-                      //   }}
                       type="date"
                       placeholder="Start Date"
                     />
@@ -181,15 +168,25 @@ const Batches = ({
 
                     <CustomReactSelect
                       hForm={form}
-                      name={`repeatCadence`}
+                      name={`batches.${index}.repeatCadence`}
                       title="Repeat Cadence"
                       options={daysData}
                       rules={{ required: "Field is required" }}
                     />
                   </SimpleGrid>
-                  <Box>
-                    <SessionDetails form={form} />
-                  </Box>
+                  {repeatCadence && repeatCadence !== "day" && (
+                    <Box py={3}>
+                      <Heading size="sm" fontSize="md" fontWeight="600" pb={2}>
+                        Repeat On
+                      </Heading>
+                      <HStack spacing={3}>
+                        {week.map((data) => (
+                          <Checkbox value={data.value}>{data.label}</Checkbox>
+                        ))}
+                      </HStack>
+                    </Box>
+                  )}
+                  <SessionDetails form={form} />
                 </VStack>
               </TabPanel>
             );

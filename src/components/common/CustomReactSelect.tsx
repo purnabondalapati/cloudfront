@@ -58,6 +58,7 @@ export interface CustomReactSelectProps {
     placeholder?: string;
     showDropdownOnModal?: boolean;
     labelProps?: FormLabelProps;
+    maxWidth?: string;
   }
   const orderOptions = (values: readonly SelectOptionInterface[]) => {
     return values
@@ -78,6 +79,7 @@ export const CustomReactSelect = ({
     placeholder,
     showDropdownOnModal,
     labelProps,
+    maxWidth
   }: CustomReactSelectProps) => {
     const {
       control
@@ -111,12 +113,12 @@ export const CustomReactSelect = ({
     };
   
     return (
-      <Controller
-        control={control}
-        name={name}
-        rules={rules}
-        render={({ field: { onChange, onBlur, value: fieldValue, name } }) => (
-          <FormControl maxWidth="220px">
+      // <Controller
+      //   control={control}
+      //   name={name}
+      //   rules={rules}
+      //   render={({ field: { onChange, onBlur, value: fieldValue, name } }) => (
+          <FormControl maxWidth={maxWidth ? maxWidth : "220px"}>
             {title && (
               <FormLabel
                 opacity={isDisabled ? 0.5 : 1}
@@ -128,30 +130,20 @@ export const CustomReactSelect = ({
               </FormLabel>
             )}
             <Select
-              isMulti={isMulti}
               name={name}
-              onChange={(e, a) => {
-                if (isMulti) {
-                  optionChange(
-                    fieldValue,
-                    onChange,
-                    e as MultiValue<SelectOptionInterface>,
-                    a
-                  );
-                } else {
-                  onChange((e as SelectOptionInterface)?.value);
-                }
-              }}
-              onBlur={onBlur}
-              value={
-                isMulti
-                  ? orderOptions(
-                      options.filter((option) =>
-                        fieldValue.includes(option.value)
-                      )
-                    )
-                  : options.find((option) => option.value === fieldValue)
-              }
+              // onChange={(e, a) => {
+              //     onChange((e as SelectOptionInterface)?.value);
+              // }}
+              // onBlur={onBlur}
+              // value={
+              //   isMulti
+              //     ? orderOptions(
+              //         options.filter((option) =>
+              //           fieldValue.includes(option.value)
+              //         )
+              //       )
+              //     : options.find((option) => option.value === fieldValue)
+              // }
               options={options}
               closeMenuOnSelect={closeMenuOnSelect}
               placeholder={placeholder ?? "Select a value"}
@@ -163,7 +155,7 @@ export const CustomReactSelect = ({
             />
             {/* <FormErrorMessage mt={1}>{errors?.message}</FormErrorMessage> */}
           </FormControl>
-        )}
-      />
+    //     )}
+    //   />
     );
   };

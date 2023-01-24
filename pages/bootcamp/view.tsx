@@ -1,4 +1,4 @@
-import { HStack, Stack, Box, Heading,Text, Tab, TabList, TabPanel, TabPanels, Tabs, Button } from "@chakra-ui/react";
+import { HStack, Stack, Box, Heading,Text, Tab, TabList, TabPanel, TabPanels, Tabs, Button, useDisclosure } from "@chakra-ui/react";
 import { EditIcon } from '@chakra-ui/icons'
 import Layout from "components/Layout";
 import { PrimaryButton } from "components/common/Buttons";
@@ -6,39 +6,49 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { useState } from "react";
-
+import RescheduleModal from "components/delivery-planner/reschedulemodal";
+import EditAgendaModal from "components/delivery-planner/editagendamodal"
 
 const ViewBootcamp = () => {
 
     const [gridApi, setGridApi] = useState(null);
   const [columnApi, setColumnApi] = useState(null);
 
+  const {
+    isOpen: isPlannerRescheduleOpen,
+    onClose: onPlannerRescheduleClose,
+    onOpen: onPlannerRescheduleOpen,
+  } = useDisclosure();
+
+  const {
+    isOpen: isAgendaEditOpen,
+    onClose: onAgendaEditClose,
+    onOpen: onAgendaEditOpen,
+  } = useDisclosure();
+
     const onGridReady = (params: any) => {
         setGridApi(params.api);
         setColumnApi(params.columnApi);
       };
 
-      const handleClick = (e) => {
-       console.log("sds",e)
-      };
 
     const actionCellRenderer = () => {
         return (
           <HStack spacing={1} h='100%'>
-            <Button colorScheme="blue" size="xs" variant="solid" onClick={() => window.location.href = '/bootcamp/create'}>
-            Cancel
+            <Button colorScheme="blue" size="xs" variant="solid" onClick={() => onPlannerRescheduleOpen()}>
+            Reschedule
             </Button>
-            <Button colorScheme="blue" size="xs" variant="outline" onClick={() => window.location.href = '/bootcamp/view'}>
-              Reschedule
+            <Button colorScheme="blue" size="xs" variant="outline">
+              Cancel
             </Button>
           </HStack>
         );
       };
 
-    const actionEditAgenda = (field) => {
+    const actionEditAgenda = (field: any) => {
         return (
             <HStack spacing={1} h='100%'>
-            <EditIcon />
+            <EditIcon cursor= 'pointer' onClick={() => onAgendaEditOpen()}/>
             <Text>{field.value}</Text>
           </HStack>
         )
@@ -60,8 +70,7 @@ const ViewBootcamp = () => {
           headerName: "Agenda",
           field: "Agenda",
           minWidth: 230,
-          cellRenderer: actionEditAgenda,
-          editable: true
+          cellRenderer: actionEditAgenda
         },
         {
           headerName: "Trainer",
@@ -122,7 +131,18 @@ const ViewBootcamp = () => {
           
       ];
   return (
-    <Box p={6} maxW="89%" >
+    <>
+    <EditAgendaModal 
+        isOpen={isAgendaEditOpen}
+        onClose={onAgendaEditClose}
+    />
+
+<RescheduleModal
+                isOpen={isPlannerRescheduleOpen}
+                onClose={onPlannerRescheduleClose}
+              />
+
+  <Box p={6} maxW="89%" >
     <HStack align={'stretch'} justifyContent='space-between'>
         <Heading size='lg'>Hello - Automative Bootcamp</Heading>
         <PrimaryButton>Publish</PrimaryButton>
@@ -168,6 +188,7 @@ const ViewBootcamp = () => {
         </TabPanels>
       </Tabs>
     </Box>
+    </>
   );
 };
 
