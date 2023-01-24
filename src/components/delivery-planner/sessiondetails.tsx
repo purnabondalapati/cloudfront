@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {Stack, VStack } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import CommonInputField from "components/common/InputField";
@@ -31,7 +31,8 @@ const SessionDetails = ({
 
   const noOfSessionsInDay = watch(`batches.${index}.noOfSessionsInDay`);
 
-  useEffect(() => {
+  if(noOfSessionsInDay) {
+
     const newVal = parseInt(noOfSessionsInDay) || 0;
     const oldVal = fields.length;
     if (newVal > oldVal) {
@@ -43,8 +44,8 @@ const SessionDetails = ({
         remove(i - 1);
       }
     }
-  }, [noOfSessionsInDay]);
-
+  }
+  
   const handleRemove = (index: number) => {
     remove(index);
   };

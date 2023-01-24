@@ -183,8 +183,8 @@ const Batches = ({
                         <HStack>
                           <Wrap>
                             {week.map((data, index) => (
-                              <WrapItem>
-                                <Checkbox value={data.value} key={index}>
+                              <WrapItem key={index}>
+                                <Checkbox value={data.value} >
                                   {data.label.slice(0, 3)}
                                 </Checkbox>
                               </WrapItem>

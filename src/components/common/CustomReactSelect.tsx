@@ -71,7 +71,9 @@ export const CustomReactSelect = ({
   labelProps,
   maxWidth,
 }: CustomReactSelectProps) => {
+  
   const { control } = hForm;
+  const id = useId();
 
   return (
     <Controller
@@ -105,7 +107,7 @@ export const CustomReactSelect = ({
                   )
                 : options.find((option) => option.value === fieldValue)
             }
-            instanceId={useId()}
+            instanceId={id}
             options={options}
             closeMenuOnSelect={closeMenuOnSelect}
             placeholder={placeholder ?? "Select a value"}
