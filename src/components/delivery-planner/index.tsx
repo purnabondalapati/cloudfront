@@ -1,38 +1,37 @@
-import React, { useState } from "react";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import { Box, Button, HStack } from "@chakra-ui/react";
+import React from "react";
+import { Button, HStack } from "@chakra-ui/react";
+import { AgGridAutoResizeToContainer } from "components/common/AgGrid.tsx/AgGridAutoResizeToContainer";
+
 
 const enum IsLiveClass {
-  true = 'Yes',
-  false = 'No',
+  true = "Yes",
+  false = "No",
 }
 
 const enum BootCamp {
   B2B = 0,
-  B2C = 1
+  B2C = 1,
 }
 
 export const DeliveryPlannerSection = () => {
-  const [gridApi, setGridApi] = useState(null);
-  const [columnApi, setColumnApi] = useState(null);
-
-  
-
-  const onGridReady = (params: any) => {
-    setGridApi(params.api);
-    setColumnApi(params.columnApi);
-  };
-
 
   const actionCellRenderer = () => {
     return (
-      <HStack spacing={1} h='100%'>
-        <Button colorScheme="blue" size="xs" variant="solid" onClick={() => window.location.href = '/bootcamp/create'}>
-        Edit
+      <HStack spacing={1} h="100%">
+        <Button
+          colorScheme="blue"
+          size="xs"
+          variant="solid"
+          onClick={() => (window.location.href = "/bootcamp/create")}
+        >
+          Edit
         </Button>
-        <Button colorScheme="blue" size="xs" variant="outline" onClick={() => window.location.href = '/bootcamp/view'}>
+        <Button
+          colorScheme="blue"
+          size="xs"
+          variant="outline"
+          onClick={() => (window.location.href = "/bootcamp/view")}
+        >
           View &#x2192;
         </Button>
       </HStack>
@@ -44,26 +43,22 @@ export const DeliveryPlannerSection = () => {
       headerName: "Name",
       field: "Name",
       minWidth: 130,
-      maxWidth: 200,
       filter: "agTextColumnFilter",
     },
     {
       headerName: "BootCamp Type",
       field: "BootcampType",
       minWidth: 130,
-      maxWidth: 150,
     },
     {
       headerName: "Live Class",
       field: "IsLiveClass",
       minWidth: 130,
-      maxWidth: 150,
     },
     {
       headerName: "Start Date",
       field: "StartDate",
       minWidth: 150,
-      maxWidth: 200,
       sortable: true,
       unSortIcon: true,
     },
@@ -71,11 +66,10 @@ export const DeliveryPlannerSection = () => {
       headerName: "End Date",
       field: "EndDate",
       minWidth: 150,
-      maxWidth: 200,
       sortable: true,
       unSortIcon: true,
       suppressNavigable: true,
-      cellClass: 'no-border'
+      cellClass: "no-border",
     },
     {
       headerName: "Action",
@@ -84,7 +78,7 @@ export const DeliveryPlannerSection = () => {
       editable: false,
       colId: "action",
       suppressNavigable: true,
-      cellClass: 'no-border'
+      cellClass: "no-border",
     },
   ];
 
@@ -202,23 +196,13 @@ export const DeliveryPlannerSection = () => {
   ];
 
   return (
-    <Box
-      className="ag-theme-alpine"
-      style={{
-        height: "500px",
-        width: "94%",
-      }}
-    >
-      <AgGridReact
-        columnDefs={columnDefs}
-        rowData={rowData}
-        onGridReady={onGridReady}
-        domLayout = 'autoHeight'
-        pagination= {true}
-  paginationPageSize = {10}
-paginateChildRows= {true}
-      />
-    </Box>
+    <AgGridAutoResizeToContainer
+      rowData={rowData}
+      columnDefs={columnDefs}
+      pagination={true}
+      paginationPageSize={10}
+      paginateChildRows={true}
+    />
   );
 };
 

@@ -1,24 +1,58 @@
+import { HamburgerIcon } from "@chakra-ui/icons";
 import {
-  Box,
-  Flex,
   Avatar,
+  Box,
+  Drawer,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerOverlay,
+  Flex,
+  IconButton,
+  Image,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
-  Image,
+  MenuList,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import SideMenu from "./SideBar";
+
+const MobileNavbar = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
+  return (
+    <Drawer isOpen={isOpen} onClose={onClose} placement="left" >
+      <DrawerOverlay />
+      <DrawerContent pt="10px">
+        <DrawerCloseButton />
+        <SideMenu />
+      </DrawerContent>
+    </Drawer>
+  );
+};
 
 export default function Header() {
+
+  const {
+    isOpen: isMobileNavOpen,
+    onOpen: onMobileNavOpen,
+    onClose: onMobileNavClose,
+  } = useDisclosure();
+  
   return (
     <Box
       flex="0 0 72px"
       bg="#FFFFFF"
-      pl="32px"
+      pl="16px"
       pr="16px"
       boxShadow="0px 2px 4px rgba(0, 0, 0, 0.15)"
     >
+      <MobileNavbar isOpen={isMobileNavOpen} onClose={onMobileNavClose} />
       <Flex
         h={16}
         alignItems={"center"}
@@ -26,6 +60,12 @@ export default function Header() {
         maxW="1600px"
         mx="auto"
       >
+        <IconButton
+            display={["block", null, "none"]}
+            aria-label="menu"
+            icon={<HamburgerIcon />}
+            onClick={onMobileNavOpen}
+          />
         <Link href={"/"}>
           <Image
             src="/images/logo2.png"
@@ -35,20 +75,27 @@ export default function Header() {
             pl={6}
           />
         </Link>
-        {/* <Flex alignItems={"center"} gap="1rem" pr={6}>
-              <Menu>
-                <MenuButton rounded={"full"}>
-                  <Avatar height="40px" width="40px" name={"sdsd"} />
-                </MenuButton>
-                <MenuList>
-                  <Link href="/" passHref>
-                    <MenuItem >Manage</MenuItem>
-                  </Link>
-                  <MenuItem>Change Password</MenuItem>
-                  <MenuItem >Logout</MenuItem>
-                </MenuList>
-              </Menu>
-          </Flex> */}
+        <Menu>
+            <MenuButton rounded={"full"}>
+              <Avatar
+                height="36px"
+                width="36px"
+                name={"User"}
+                // src={{}}
+              />
+            </MenuButton>
+            <MenuList>
+              <MenuItem >
+                My Profile
+              </MenuItem>
+              <MenuItem >
+                Change Password
+              </MenuItem>
+              <MenuItem >
+                Log Out
+              </MenuItem>
+            </MenuList>
+          </Menu>
       </Flex>
     </Box>
   );

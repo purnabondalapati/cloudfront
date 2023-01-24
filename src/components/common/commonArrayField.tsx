@@ -1,4 +1,4 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 
 const CommonArrayField = ({
   children,
@@ -8,12 +8,9 @@ const CommonArrayField = ({
   removeButton?: React.ReactNode;
 }) => {
   return (
-    <Box width={'100%'}>
-     
+    <Box width={"100%"}>
       <Box border="1px solid #c3cfd9" p={4} borderRadius="3px">
-         <HStack justify="flex-end">
-        {removeButton}
-      </HStack>
+        <HStack justify="flex-end">{removeButton}</HStack>
         {children}
       </Box>
     </Box>

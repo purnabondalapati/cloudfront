@@ -22,11 +22,11 @@ const SecondaryButton = (props: ButtonProps) => {
       bg="white"
       color="primary"
       border="1px solid"
-      variant='outline'
+      variant="outline"
       borderColor="primary"
       {...props}
     />
   );
 };
 
-export { PrimaryButton , SecondaryButton };
+export { PrimaryButton, SecondaryButton };

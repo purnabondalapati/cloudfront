@@ -2,7 +2,7 @@
 const dashboardDetails = [
     {
         tag: "Delivery Planner & Schedule",
-        internalLink: "/deliveryplanner"
+        internalLink: "/bootcamp"
     },
     {
         tag: "Student Attendance",

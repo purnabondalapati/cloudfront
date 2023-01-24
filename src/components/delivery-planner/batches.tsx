@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Checkbox,
@@ -10,8 +10,10 @@ import {
   TabPanels,
   Tabs,
   VStack,
-  Text,
   Heading,
+  Radio,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import CommonInputField from "components/common/InputField";
 import NumberedInputField from "components/common/NumberInputField";
@@ -45,16 +47,14 @@ const Batches = ({
     { value: "7", label: "Sun" },
   ];
   const index = 0;
-  const { register, control, handleSubmit, reset, watch } = form;
-  const { fields , append, remove } = useFieldArray({
+  const { control, watch } = form;
+  const { fields, append, remove } = useFieldArray({
     control,
     name: `batches`,
   });
 
   const repeatCadence = watch(`batches.${index}.repeatCadence`);
- 
   let indexBefore: number;
-  const [value, setValue] = useState("0");
 
   const handleAdd = () => {
     append(batchdata);
@@ -72,6 +72,7 @@ const Batches = ({
           {fields.map((data, index) => {
             return (
               <Tab
+                key={data.id}
                 borderBottomWidth="3.5px"
                 fontWeight="medium"
                 _selected={{
@@ -80,7 +81,6 @@ const Batches = ({
                 }}
                 px={0}
                 mr={8}
-                isSelected={indexBefore == index ? true : false}
               >
                 Module {index + 1}
               </Tab>
@@ -94,7 +94,7 @@ const Batches = ({
         <TabPanels pt={2}>
           {fields.map((data, index) => {
             return (
-              <TabPanel p={0}>
+              <TabPanel p={0} key={data.id}>
                 <VStack
                   align={"stretch"}
                   border="1px solid #A5A5A5"
@@ -179,13 +179,56 @@ const Batches = ({
                       <Heading size="sm" fontSize="md" fontWeight="600" pb={2}>
                         Repeat On
                       </Heading>
-                      <HStack spacing={3}>
-                        {week.map((data) => (
-                          <Checkbox value={data.value}>{data.label}</Checkbox>
-                        ))}
-                      </HStack>
+                      {repeatCadence == "week" && (
+                        <HStack>
+                          <Wrap>
+                            {week.map((data, index) => (
+                              <WrapItem>
+                                <Checkbox value={data.value} key={index}>
+                                  {data.label.slice(0, 3)}
+                                </Checkbox>
+                              </WrapItem>
+                            ))}
+                          </Wrap>
+                        </HStack>
+                      )}
+                      {repeatCadence == "month" && (
+                        <VStack align={"stretch"}>
+                          <HStack>
+                            <Radio value="1">On day</Radio>
+                            <CustomReactSelect
+                              hForm={form}
+                              name={`rescheduleDay`}
+                              options={daysData}
+                              rules={{ required: "Field is required" }}
+                              maxWidth="90px"
+                              placeholder="" // isDisabled={{}}
+                            />
+                          </HStack>
+                          <HStack>
+                            <Radio value="2">On the</Radio>
+                            <CustomReactSelect
+                              hForm={form}
+                              name={`rescheduleDay`}
+                              options={daysData}
+                              rules={{ required: "Field is required" }}
+                              maxWidth="90px"
+                              placeholder="" // isDisabled={{}}
+                            />
+                            <CustomReactSelect
+                              hForm={form}
+                              name={`rescheduleDay`}
+                              options={week}
+                              rules={{ required: "Field is required" }}
+                              maxWidth="150px"
+                              placeholder="" // isDisabled={{}}
+                            />
+                          </HStack>
+                        </VStack>
+                      )}
                     </Box>
                   )}
+
                   <SessionDetails form={form} />
                 </VStack>
               </TabPanel>

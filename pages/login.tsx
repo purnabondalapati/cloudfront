@@ -8,19 +8,17 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { PrimaryButton } from "components/common/Buttons";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 // import { login } from "src/redux/slices/authSlice";
 
 const Login = () => {
-
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<any>();
 
-
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleLogin = (e: any) => {
     e.preventDefault();
@@ -46,8 +44,12 @@ const Login = () => {
         <Image src="/images/logo2.png" alt="logo" mx="auto" />
         <FormControl mt={14}>
           <FormLabel fontWeight="600">Email Address</FormLabel>
-          <Input border="2px solid #c3cfd9" placeholder="Email" type="email"
-                  {...register("email", { required: true })}/>
+          <Input
+            border="2px solid #c3cfd9"
+            placeholder="Email"
+            type="email"
+            {...register("email", { required: true })}
+          />
           <FormErrorMessage mt={1}>Email is required</FormErrorMessage>
         </FormControl>
         <FormControl mt={5}>

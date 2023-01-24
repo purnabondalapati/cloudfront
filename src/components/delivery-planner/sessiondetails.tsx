@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import { Button, HStack, Stack, VStack  } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons"
+import React, { useEffect } from "react";
+import {Stack, VStack } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import CommonInputField from "components/common/InputField";
-import NumberedInputField from "components/common/NumberInputField";
 import { CustomReactSelect } from "components/common/CustomReactSelect";
-import {
-  useFieldArray,
-  Controller,
-  UseFormReturn,
-  UseFieldArrayReturn,
-} from "react-hook-form";
+import { useFieldArray, UseFormReturn } from "react-hook-form";
 import {
   PurchaseOrderDetailsInterface,
   batchInitialValues,
-  BatchInterface,
 } from "pages/bootcamp/create";
 import CommonArrayField from "components/common/commonArrayField";
 
@@ -42,16 +32,13 @@ const SessionDetails = ({
   const noOfSessionsInDay = watch(`batches.${index}.noOfSessionsInDay`);
 
   useEffect(() => {
-    // update field array when ticket number changed
     const newVal = parseInt(noOfSessionsInDay) || 0;
     const oldVal = fields.length;
     if (newVal > oldVal) {
-      // append tickets to field array
       for (let i = oldVal; i < newVal; i++) {
         append(batchInitialValues);
       }
     } else {
-      // remove tickets from field array
       for (let i = oldVal; i > newVal; i--) {
         remove(i - 1);
       }
@@ -63,7 +50,7 @@ const SessionDetails = ({
   };
 
   return (
-    <Stack align='stretch' direction={['column','row']} spacing={8}  >
+    <Stack align="stretch" direction={["column", "row"]} spacing={8}>
       <CustomReactSelect
         hForm={form}
         name={`batches.${index}.noOfSessionsInDay`}
@@ -71,47 +58,50 @@ const SessionDetails = ({
         options={sessionData}
         rules={{ required: "Field is required" }}
       />
-      <VStack  width={'full'}> 
-      {fields.map((data, index) => {
-        return (
-         
-<CommonArrayField  key={data.id} removeButton={
-                index !== 0 && ( 
-                  
-                  <DeleteIcon 
-                  color="red.500"
-                  onClick={() => handleRemove(index)}
-                  cursor='pointer'
-                   />
+      <VStack width={"full"}>
+        {fields.map((data, index) => {
+          return (
+            <CommonArrayField
+              key={data.id}
+              removeButton={
+                index !== 0 && (
+                  <DeleteIcon
+                    color="red.500"
+                    onClick={() => handleRemove(index)}
+                    cursor="pointer"
+                  />
                 )
-              }>
-<Stack direction={['column','row']} flexWrap='wrap' justifyContent={'space-between'}>
-            <CommonInputField
-              hForm={form}
-              title="Session Start Time"
-              name={`sessionStartTime`}
-              rules={{ required: "Field is required" }}
-              type="time"
-              // step='15'
-            />
-            <CommonInputField
-              hForm={form}
-              title="Session End Time"
-              name={`sessionEndTime`}
-              rules={{ required: "Field is required" }}
-              type="time"
-            />
-            <CommonInputField
-              hForm={form}
-              title="Trainer"
-              name={`trainer`}
-              rules={{ required: "Field is required" }}
-            />
-            </Stack>
-          </CommonArrayField>
-          
-        );
-      })}
+              }
+            >
+              <Stack
+                direction={["column", "row"]}
+                flexWrap="wrap"
+                justifyContent={"space-between"}
+              >
+                <CommonInputField
+                  hForm={form}
+                  title="Session Start Time"
+                  name={`sessionStartTime`}
+                  rules={{ required: "Field is required" }}
+                  type="time"
+                />
+                <CommonInputField
+                  hForm={form}
+                  title="Session End Time"
+                  name={`sessionEndTime`}
+                  rules={{ required: "Field is required" }}
+                  type="time"
+                />
+                <CommonInputField
+                  hForm={form}
+                  title="Trainer"
+                  name={`trainer`}
+                  rules={{ required: "Field is required" }}
+                />
+              </Stack>
+            </CommonArrayField>
+          );
+        })}
       </VStack>
     </Stack>
   );
