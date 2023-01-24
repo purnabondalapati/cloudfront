@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/react";
-import Dashboard from "components/dashboard"
+import Dashboard from "components/dashboard";
 import Layout from "components/Layout";
 
 const Home = () => {
   return (
     <Box>
-      <Dashboard/>
-    </Box>  
+      <Dashboard />
+    </Box>
   );
 };
 

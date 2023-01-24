@@ -1,26 +1,32 @@
-import { Box, Heading, Tabs, TabList, Tab, Stack, TabPanels , TabPanel } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Tabs,
+  TabList,
+  Tab,
+  Stack,
+  TabPanels,
+  TabPanel,
+} from "@chakra-ui/react";
 import Layout from "components/Layout";
 import { PrimaryButton } from "components/common/Buttons";
-import DeliveryPlannerSection from 'components/delivery-planner'
+import DeliveryPlannerSection from "components/delivery-planner";
 
 const DeliveryPlanner = () => {
-
   const bootcampCreate = () => {
     window.location.href = `/bootcamp/create`;
-  }
+  };
   return (
     <Box p={5}>
-      <Stack 
-        direction={['column','row']}
-        align={'stretch'}
-        justifyContent='space-between'
-        alignItems={['flex-start','center']}
-        m={2}
+      <Stack
+        direction={["column", "row"]}
+        align={"stretch"}
+        justifyContent="space-between"
+        alignItems={["flex-start", "center"]}
+        my={2}
       >
-        <Heading fontSize="lg" >
-          Delivery Planner & Schedule
-        </Heading>
-        <PrimaryButton onClick={bootcampCreate} >
+        <Heading fontSize="lg">Delivery Planner & Schedule</Heading>
+        <PrimaryButton onClick={bootcampCreate}>
           Create new bootcamp
         </PrimaryButton>
       </Stack>
@@ -52,13 +58,11 @@ const DeliveryPlanner = () => {
           </Tab>
         </TabList>
         <TabPanels pt={2}>
-            <TabPanel p={0}>
-              <DeliveryPlannerSection />
-            </TabPanel>
-            <TabPanel p={0}>
-              Welcome
-            </TabPanel>
-            </TabPanels>
+          <TabPanel >
+            <DeliveryPlannerSection />
+          </TabPanel>
+          <TabPanel >Welcome</TabPanel>
+        </TabPanels>
       </Tabs>
     </Box>
   );

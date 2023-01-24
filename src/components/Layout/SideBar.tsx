@@ -45,7 +45,6 @@ const menuList: {
 export const MenuItem = ({
   menu,
   isActive,
-  isHovered,
   onHover,
   onHoverOut,
 }: {
@@ -56,7 +55,6 @@ export const MenuItem = ({
     url: string;
   };
   isActive: boolean;
-  isHovered: boolean;
   onHover: () => void;
   onHoverOut: () => void;
 }) => {
@@ -97,7 +95,6 @@ const SideMenu = () => {
           menu={item}
           key={index}
           isActive={item.url === router.pathname}
-          isHovered={hoverIndex === index}
           onHover={() => setHoverIndex(index)}
           onHoverOut={() => setHoverIndex(null)}
         />

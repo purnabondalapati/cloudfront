@@ -1,28 +1,16 @@
 import React, { useState } from "react";
 import {
-  ButtonGroup,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  CheckboxGroup,
-  Checkbox,
   VStack,
-  Box,
   HStack,
   Text,
   RadioGroup,
-  Radio,
-  FormControl,
+  Radio
 } from "@chakra-ui/react";
-import Select from "react-select";
-import { PrimaryButton, SecondaryButton } from "components/common/Buttons";
-import { CustomReactSelect } from "components/common/CustomReactSelect";
 import CommonInputField from "components/common/InputField";
 import CustomModal from "components/common/customModal";
+import { CustomReactSelect } from "components/common/CustomReactSelect";
+import { removeExtraProps, PurchaseOrderDetailsInterface } from "pages/bootcamp/create";
+import { useForm } from "react-hook-form";
 
 const RescheduleModal = ({
     isOpen,
@@ -31,6 +19,11 @@ const RescheduleModal = ({
     isOpen: boolean;
     onClose: () => void;
   }) => {
+
+    const sessionForm = useForm({
+      mode: "onChange",
+      defaultValues: removeExtraProps({}, new PurchaseOrderDetailsInterface()),
+    });
 
     const daysData = [
         { value: "1", label: "1" },
@@ -45,26 +38,15 @@ const RescheduleModal = ({
         <VStack align={'stretch'} spacing={3} pb={5}  >
             <HStack>
             <Radio value='1'>Move the current and subsequent by</Radio>
-            {/* <CustomReactSelect
-                      hForm={{}}
+            <CustomReactSelect
+                      hForm={{sessionForm}}
                       name={`rescheduleDay`}
                       options={daysData}
                       rules={{ required: "Field is required" }}
                       maxWidth='90px'
                       placeholder=''
                       isDisabled={value === '1' ? false : true}
-                    /> */}
-                    <FormControl maxWidth={'90px'}>
-            
-            <Select
-              name={'rescheduleDay'}
-              options={daysData}
-              isDisabled={value === '1' ? false : true}
-              menuPortalTarget={null}
-              placeholder=''
-            />
-            {/* <FormErrorMessage mt={1}>{errors?.message}</FormErrorMessage> */}
-          </FormControl>
+                    />
              <Text>days</Text>       
             </HStack>
             <Radio value='2'>Move the current session to specific date and time without altering the other sessions</Radio>

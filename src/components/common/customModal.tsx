@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ButtonGroup,
   Modal,
@@ -10,42 +10,34 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { PrimaryButton, SecondaryButton } from "components/common/Buttons";
-import { Editor } from '@tinymce/tinymce-react'
 
 const CustomModal = ({
-    isOpen,
-    onClose,
-    children
-  }: {
-    isOpen: boolean;
-    onClose: () => void;
-    children: React.ReactNode;
-  }) => {
-
-    const daysData = [
-        { value: "1", label: "1" },
-        { value: "2", label: "2" },
-        { value: "3", label: "3" },
-      ];
-    
-      const [value , setValue] = useState('0')
+  isOpen,
+  onClose,
+  children,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}) => {
   return (
-    <Modal size={["sm", "xl", "2xl"]}  isOpen={isOpen} onClose={onClose}>
-    <ModalOverlay />
-    <ModalContent>
-    <ModalHeader
-      borderBottom="1px solid #DDDBDA"
-      bgColor="#F2F8FD"
-      fontSize="18px"
-      fontWeight="700">
-        Add/Edit Agenda
-      </ModalHeader>
-      <ModalCloseButton />
-      <ModalBody mx={3} my={5}>
-        {children}
-      </ModalBody>
-      <ModalFooter boxShadow="0px -1px 0px #DDDBDA">
-      <ButtonGroup spacing={2}>
+    <Modal size={["sm", "xl", "2xl"]} isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader
+          borderBottom="1px solid #DDDBDA"
+          bgColor="#F2F8FD"
+          fontSize="18px"
+          fontWeight="700"
+        >
+          Add/Edit Agenda
+        </ModalHeader>
+        <ModalCloseButton />
+        <ModalBody mx={3} my={5}>
+          {children}
+        </ModalBody>
+        <ModalFooter boxShadow="0px -1px 0px #DDDBDA">
+          <ButtonGroup spacing={2}>
             <SecondaryButton
               fontWeight="400"
               fontSize="13px"
@@ -64,8 +56,8 @@ const CustomModal = ({
             </PrimaryButton>
           </ButtonGroup>
         </ModalFooter>
-    </ModalContent>
-  </Modal>
+      </ModalContent>
+    </Modal>
   );
 };
 

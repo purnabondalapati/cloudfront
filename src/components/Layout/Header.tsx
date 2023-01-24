@@ -1,11 +1,6 @@
 import {
   Box,
   Flex,
-  Avatar,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   Image,
 } from "@chakra-ui/react";
 import Link from "next/link";
@@ -35,20 +30,6 @@ export default function Header() {
             pl={6}
           />
         </Link>
-        {/* <Flex alignItems={"center"} gap="1rem" pr={6}>
-              <Menu>
-                <MenuButton rounded={"full"}>
-                  <Avatar height="40px" width="40px" name={"sdsd"} />
-                </MenuButton>
-                <MenuList>
-                  <Link href="/" passHref>
-                    <MenuItem >Manage</MenuItem>
-                  </Link>
-                  <MenuItem>Change Password</MenuItem>
-                  <MenuItem >Logout</MenuItem>
-                </MenuList>
-              </Menu>
-          </Flex> */}
       </Flex>
     </Box>
   );

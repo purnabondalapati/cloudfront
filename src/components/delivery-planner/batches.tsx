@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Checkbox,
@@ -10,7 +10,6 @@ import {
   TabPanels,
   Tabs,
   VStack,
-  Text,
   Heading,
 } from "@chakra-ui/react";
 import CommonInputField from "components/common/InputField";
@@ -45,7 +44,7 @@ const Batches = ({
     { value: "7", label: "Sun" },
   ];
   const index = 0;
-  const { register, control, handleSubmit, reset, watch } = form;
+  const { control, watch } = form;
   const { fields , append, remove } = useFieldArray({
     control,
     name: `batches`,
@@ -54,7 +53,6 @@ const Batches = ({
   const repeatCadence = watch(`batches.${index}.repeatCadence`);
  
   let indexBefore: number;
-  const [value, setValue] = useState("0");
 
   const handleAdd = () => {
     append(batchdata);
@@ -72,6 +70,7 @@ const Batches = ({
           {fields.map((data, index) => {
             return (
               <Tab
+                key={data.id}
                 borderBottomWidth="3.5px"
                 fontWeight="medium"
                 _selected={{
@@ -80,7 +79,6 @@ const Batches = ({
                 }}
                 px={0}
                 mr={8}
-                isSelected={indexBefore == index ? true : false}
               >
                 Module {index + 1}
               </Tab>
@@ -94,7 +92,7 @@ const Batches = ({
         <TabPanels pt={2}>
           {fields.map((data, index) => {
             return (
-              <TabPanel p={0}>
+              <TabPanel p={0} key={data.id}>
                 <VStack
                   align={"stretch"}
                   border="1px solid #A5A5A5"
@@ -180,8 +178,8 @@ const Batches = ({
                         Repeat On
                       </Heading>
                       <HStack spacing={3}>
-                        {week.map((data) => (
-                          <Checkbox value={data.value}>{data.label}</Checkbox>
+                        {week.map((data, index) => (
+                          <Checkbox value={data.value} key={index}>{data.label}</Checkbox>
                         ))}
                       </HStack>
                     </Box>
