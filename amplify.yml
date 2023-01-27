@@ -3,10 +3,11 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm ci
+        - npm install
     # IMPORTANT - Please verify your build commands
     build:
-      commands: []
+      commands: 
+       - npm run build
   artifacts:
     baseDirectory: .next
     files:
