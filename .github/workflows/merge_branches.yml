@@ -1,4 +1,4 @@
-name: Update Production
+name: Update stage branch code with master branches
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  update-production:
+  update-stage-branch-code:
     name: Merge master into production after a PR is merged
     runs-on: ubuntu-latest
     steps:
