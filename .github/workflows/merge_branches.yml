@@ -18,10 +18,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # Let's get all the branches
-      - name: Merge Master to Production branch
-        uses: devvspaces/merge-branches@v1
-        with:
-          token: ${{ github.token }}
-          from_branch: master
-          to_branch: stage
+           token: ${{ github.token }}
+           run: 
+             git checkout stage
+             git merge master
+#           fetch-depth: 0 # Let's get all the branches
+#       - name: Merge Master to Production branch
+#         uses: devvspaces/merge-branches@v1
+#         with:
+#           token: ${{ github.token }}
+#           from_branch: master
+#           to_branch: stage
