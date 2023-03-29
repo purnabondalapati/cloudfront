@@ -17,11 +17,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-           token: ${{ github.token }}
-           run: |
-             git checkout stage
-             git merge master
+       # with:
+       #   token: ${{ github.token }}
+      - name: Set Git config
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "Github Actions"
+      - name: Merge master back to dev
+        run: |
+          git fetch master
+          git checkout stage
+          git pull stage
+          git merge master
+          git push stage
 #           fetch-depth: 0 # Let's get all the branches
 #       - name: Merge Master to Production branch
 #         uses: devvspaces/merge-branches@v1
