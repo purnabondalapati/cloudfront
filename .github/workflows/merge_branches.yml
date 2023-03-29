@@ -26,8 +26,8 @@ jobs:
       - name: Merge master back to dev
         run: |
           git fetch origin master
-          git checkout stage
-          git pull 
+          git checkout  stage
+          git pull origin stage
           git merge master
           git push 
 #           fetch-depth: 0 # Let's get all the branches
