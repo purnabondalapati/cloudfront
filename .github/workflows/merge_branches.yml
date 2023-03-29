@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   update-stage-branch-code:
-    name: Merge master into production after a PR is merged
+    name: Merge master into stage branch after a PR is merged
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
