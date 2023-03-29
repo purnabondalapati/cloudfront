@@ -25,11 +25,11 @@ jobs:
           git config --local user.name "Github Actions"
       - name: Merge master back to dev
         run: |
-          git fetch master
+          git fetch 
           git checkout stage
-          git pull stage
+          git pull 
           git merge master
-          git push stage
+          git push 
 #           fetch-depth: 0 # Let's get all the branches
 #       - name: Merge Master to Production branch
 #         uses: devvspaces/merge-branches@v1
